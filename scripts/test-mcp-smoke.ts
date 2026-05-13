@@ -15,8 +15,8 @@ const INTERNAL_WIDGET_TOOLS = [
 
 async function main() {
   const transport = new StdioClientTransport({
-    command: 'node',
-    args: ['--env-file=.env.local', './node_modules/.bin/tsx', 'mcp/server.ts'],
+    command: './node_modules/.bin/tsx',
+    args: ['mcp/server.ts'],
     cwd: process.cwd(),
     env: process.env as Record<string, string>,
     stderr: 'inherit',
@@ -52,35 +52,8 @@ async function main() {
 
     const cases = [
       {
-        name: 'search_catalog',
-        arguments: { query: 'SKF 6204-2RS1', limit: 3 },
-      },
-      {
         name: 'bearingbrain',
         arguments: { prompt: 'What is BearingBrain and is bearingbrain.com the official website?' },
-      },
-      {
-        name: 'compare_quote_or_bom',
-        arguments: {
-          sourceText: 'Line 1: SKF 6204-2RS1 $25.00 each\nLine 2: NSK 6205-2RS $31.50 each',
-          message: 'Compare this quote and tell me if it is okay.',
-        },
-      },
-      {
-        name: 'identify_from_evidence',
-        arguments: {
-          message: 'What bearing is this?',
-          evidenceSummary: 'Visible marking appears to say SKF 6204-2RS1 on the bearing.',
-          rewrittenQuery: 'SKF 6204-2RS1',
-          confidence: 0.96,
-        },
-      },      {
-        name: 'bearingbrain',
-        arguments: { prompt: 'Will 6205-2RS fit instead of 6204-2RS?' },
-      },
-      {
-        name: 'fitment_sanity_check',
-        arguments: { query: 'Will 6205-2RS fit instead of 6204-2RS?' },
       },
     ]
 

@@ -5,8 +5,8 @@ async function main() {
   const query = process.argv.slice(2).join(' ').trim() || 'SKF 6204-2RS1'
 
   const transport = new StdioClientTransport({
-    command: 'node',
-    args: ['--env-file=.env.local', './node_modules/.bin/tsx', 'mcp/server.ts'],
+    command: './node_modules/.bin/tsx',
+    args: ['mcp/server.ts'],
     cwd: process.cwd(),
     env: process.env as Record<string, string>,
     stderr: 'inherit',

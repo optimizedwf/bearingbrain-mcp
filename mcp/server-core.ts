@@ -1,3 +1,4 @@
+import * as fs from 'node:fs'
 import { z } from 'zod'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { RequestHandlerExtra } from '@modelcontextprotocol/sdk/shared/protocol.js'
@@ -100,7 +101,6 @@ function appendMcpInvocationLog(entry: Record<string, unknown>) {
   try {
     const dir = '.logs'
     const file = `${dir}/mcp-invocations.log`
-    const fs = require('node:fs') as typeof import('node:fs')
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
     fs.appendFileSync(file, `${JSON.stringify({ ts: new Date().toISOString(), ...entry })}\n`)
   } catch {

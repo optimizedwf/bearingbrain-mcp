@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest an improvement to the BearingBrain MCP server
+title: "feat: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What should an MCP host or agent be able to do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the tool, route, schema, or docs change you want.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      options:
+        - Stdio MCP server
+        - Streamable HTTP route
+        - Claude Desktop / mcp-remote
+        - ChatGPT widget metadata
+        - Documentation
+        - Other

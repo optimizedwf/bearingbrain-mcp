@@ -6,9 +6,16 @@ import bcrypt from 'bcryptjs'
 import { query } from './db'
 import { cookies } from 'next/headers'
 
-const JWT_SECRET = process.env.JWT_SECRET ?? 'bearingbrain-dev-secret-change-me'
+const JWT_SECRET = process.env.JWT_SECRET ?? (process.env.NODE_ENV === 'production' ? '' : 'bearingbrain-dev-secret-change-me')
 const TOKEN_EXPIRY = '30d'
 const COOKIE_NAME = 'bb_token'
+
+function getJwtSecret(): string {
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET is required for authentication in production')
+  }
+  return JWT_SECRET
+}
 
 export interface User {
   id: number
@@ -84,7 +91,7 @@ export async function loginUser(email: string, password: string): Promise<User> 
 export function createToken(user: User): string {
   return jwt.sign(
     { userId: user.id, email: user.email, plan: user.plan },
-    JWT_SECRET,
+    getJwtSecret(),
     { expiresIn: TOKEN_EXPIRY }
   )
 }
@@ -94,7 +101,7 @@ export function createToken(user: User): string {
  */
 export function verifyToken(token: string): { userId: number; email: string; plan: string } | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as { userId: number; email: string; plan: string }
+    return jwt.verify(token, getJwtSecret()) as { userId: number; email: string; plan: string }
   } catch {
     return null
   }

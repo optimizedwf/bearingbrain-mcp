@@ -1,56 +1,85 @@
 {
   "name": "bearingbrain-mcp",
   "version": "0.1.0",
+  "description": "Public BearingBrain MCP server slice for Claude Desktop, ChatGPT, and streamable HTTP hosts.",
+  "license": "MIT",
   "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "homepage": "https://github.com/optimizedwf/bearingbrain-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/optimizedwf/bearingbrain-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/optimizedwf/bearingbrain-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "bearingbrain",
+    "bearings",
+    "industrial",
+    "catalog-search",
+    "fitment",
+    "claude-desktop",
+    "chatgpt"
+  ],
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
-    "mcp:server": "node --env-file=.env.local ./node_modules/.bin/tsx mcp/server.ts",
-    "mcp:test:search": "node --env-file=.env.local ./node_modules/.bin/tsx scripts/test-mcp-search-catalog.ts",
-    "mcp:test:smoke": "node --env-file=.env.local ./node_modules/.bin/tsx scripts/test-mcp-smoke.ts",
-    "mcp:test:http": "node --env-file=.env.local ./node_modules/.bin/tsx scripts/test-mcp-http.ts",
-    "mcp:test:claude": "node --env-file=.env.local ./node_modules/.bin/tsx scripts/test-mcp-claude.ts"
+    "mcp:server": "tsx -r dotenv/config mcp/server.ts",
+    "mcp:test:search": "tsx -r dotenv/config scripts/test-mcp-search-catalog.ts",
+    "mcp:test:smoke": "tsx -r dotenv/config scripts/test-mcp-smoke.ts",
+    "mcp:test:http": "tsx -r dotenv/config scripts/test-mcp-http.ts",
+    "mcp:test:claude": "tsx -r dotenv/config scripts/test-mcp-claude.ts",
+    "test": "npm run typecheck && npm run mcp:test:smoke"
   },
   "dependencies": {
-    "@ag-ui/client": "^0.0.47",
-    "@ag-ui/core": "^0.0.47",
     "@anthropic-ai/sdk": "^0.78.0",
-    "@copilotkit/react-core": "^1.53.0",
-    "@copilotkit/react-ui": "^1.53.0",
-    "@copilotkit/runtime": "^1.53.0",
     "@google/genai": "^1.44.0",
-    "@google/generative-ai": "^0.24.1",
     "@modelcontextprotocol/sdk": "^1.27.1",
-    "@types/pg": "^8.18.0",
     "axios": "^1.13.6",
     "bcryptjs": "^3.0.3",
-    "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
-    "drizzle-kit": "^0.31.9",
-    "drizzle-orm": "^0.45.1",
+    "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.3",
-    "lucide-react": "^0.577.0",
-    "next": "16.1.6",
     "pg": "^8.19.0",
-    "puppeteer": "^24.38.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
     "stripe": "^20.4.1",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/bcryptjs": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
+    "@types/pg": "^8.18.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
+    "eslint-config-next": "16.3.0-canary.19",
+    "next": "16.3.0-canary.19",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "tsx": "^4.21.0",
     "typescript": "^5"
   },
-  "description": "Public BearingBrain MCP slice for Claude/Desktop and streamable HTTP hosts."
+  "peerDependencies": {
+    "next": ">=16.0.0",
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  }
 }
